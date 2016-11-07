@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Aceedo</title>
+        <script data-require="jquery@*" data-semver="2.1.4" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.css" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-route.min.js"></script>
+        <script src="//rawgit.com/devmark/angular-slick-carousel/master/dist/angular-slick.js"></script>
+
+        <!-- Bootstrap -->
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+        <link rel="stylesheet" href="./css/style.css" >
+    </head>
+    <body ng-app="Accedo" >
+
+        <div class="wrapper">
+            <nav class="navbar navbar-custom">
+                <div class="container-fluid">
+                    <div class="navbar-header full-width">
+                        <a class="navbar-brand" href="#/">Home</a>
+                        <a class="navbar-brand navbar-right" href="#/history">History</a>
+                    </div>
+                </div>
+            </nav>
+            <div ng-view></div>
+            <script type=text/ng-template id=index.html>
+            <div>
+            <div id="fade-wrapper">
+                <video id="videoplayer" ng-attr-poster="{{ video.poster || './images/default.jpg' }}" ng-src="{{video.src | trustUrl}}" controls style="border: #5a5a5a 1px solid; border-radius:2px;">
+                    <object width="1280" height="745" type="video/mp4">
+                        <param name="movie" value={{video.src}}/>
+                        <param name="allowFullScreen" value="true"/>
+                        <param name="allowscriptaccess" value="always"/>
+                    </object>
+                </video>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+    <div class="col-lg-12">
+    <slick class="image2 slick" data="viewData" dots="true" ng-if="viewLoaded" settings="slickPanels" responsive="miniGalleryResponsive">
+        <div ng-repeat="video in entries">
+        <div class="slide slide-4">
+          <div>
+                <img ng-src="{{ video.images[0].url || './images/default.jpg' }}" ng-click="playVideo(video)" />
+                <p>
+                    {{ video.title | limitTo: 28 }}{{ video.title.length > 28 ? '...' : '' }}</p>
+          </div>
+        </div>
+      </div>
+    </slick>
+                      <!-- <ul class="image"  data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
+                          <li><img src="http://lorempixel.com/214/317/" /></li>
+                          <li><img src="http://lorempixel.com/214/317/" /></li>
+                      </ul> -->
+                      <!-- <ul class="image2"  data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
+                          <li ng-repeat="video in entries">
+                              <div class="layer">
+                                  <img ng-src="{{ video.images[0].url || './images/default.jpg' }}" ng-click="playVideo(video)" />
+                                  <p>
+                                      {{ video.title | limitTo: 28 }}{{ video.title.length > 28 ? '...' : '' }}</p>
+                              </div>
+                          </li>
+                      </ul> -->
+                    </div>
+                </div>
+            </div>
+          </div>
+        </script>
+          <script type=text/ng-template id=history.html>
+            <div>
+              <div class="container-fluid">
+                  <div class="row">
+                      <div class="col-lg-12">
+                           <div class="image">
+                              <div ng-repeat="video in history">
+                                  <div class="layer">
+                                      <img ng-src="{{ video.images[0].url || './images/default.jpg' }}" />
+                                      <p>
+                                          {{ video.title | limitTo: 28 }}{{ video.title.length > 28 ? '...' : '' }}</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </script>
+        </div>
+        <script src="./js/controller.js"></script>
+        <!-- <script type="text/javascript">
+$(document).ready(function(){
+ $('.image2').slick();
+});
+        </script> -->
+    </body>
+</html>
